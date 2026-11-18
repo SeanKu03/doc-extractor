@@ -16,7 +16,7 @@ CLI, который получает текст документа (счёт, к
 ollama pull gemma3:4b           # Ollama должна быть запущена (приложение или `ollama serve`)
 
 # 2. Код
-git clone <URL этого репозитория> doc-extractor
+git clone https://github.com/SeanKu03/doc-extractor.git doc-extractor
 cd doc-extractor
 python3 -m venv .venv
 source .venv/bin/activate       # Windows: .venv\Scripts\activate
