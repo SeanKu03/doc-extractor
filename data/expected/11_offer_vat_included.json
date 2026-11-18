@@ -1,0 +1,16 @@
+{
+  "doc_type": "commercial_offer",
+  "supplier_name": "ТОО «Green Office Supply»",
+  "supplier_bin": "210140090834",
+  "doc_number": "КП-88",
+  "doc_date": "2026-11-10",
+  "currency": "KZT",
+  "total_amount": 2205000,
+  "vat_amount": null,
+  "line_items": [
+    {"name": "Кресло офисное Ergo M2", "qty": 15, "price": 85000},
+    {"name": "Стол письменный 140×70", "qty": 15, "price": 62000}
+  ],
+  "expected_warnings": [],
+  "_note": "Ловушка: 'цены с учётом НДС', но сумма НДС не указана — модель не должна считать 16% сама."
+}

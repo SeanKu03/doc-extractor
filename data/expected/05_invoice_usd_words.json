@@ -1,0 +1,15 @@
+{
+  "doc_type": "invoice",
+  "supplier_name": "ТОО «Nomad Software»",
+  "supplier_bin": "220340063172",
+  "doc_number": "INV-2026-118",
+  "doc_date": "2026-11-02",
+  "currency": "USD",
+  "total_amount": 2500,
+  "vat_amount": null,
+  "line_items": [
+    {"name": "Лицензия CloudDesk Pro (годовая)", "qty": 2, "price": 1250}
+  ],
+  "expected_warnings": ["VAT_EXEMPT"],
+  "_note": "Итог только прописью. Дата словами."
+}

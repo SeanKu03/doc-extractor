@@ -1,0 +1,15 @@
+{
+  "doc_type": "invoice",
+  "supplier_name": "ТОО «Каспий Снаб»",
+  "supplier_bin": "230240007437",
+  "doc_number": "15",
+  "doc_date": "2026-11-03",
+  "currency": "KZT",
+  "total_amount": 550000,
+  "vat_amount": null,
+  "line_items": [
+    {"name": "Трубы ПНД 110 мм, м", "qty": 200, "price": 2500}
+  ],
+  "expected_warnings": ["TOTALS_CONFLICT", "DATES_CONFLICT"],
+  "_note": "Два разных итога и две даты. Правило: total = строка 'к оплате', doc_date = дата в заголовке рядом с номером."
+}

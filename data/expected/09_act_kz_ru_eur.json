@@ -1,0 +1,15 @@
+{
+  "doc_type": "act",
+  "supplier_name": "ЖШС «Tech Bridge KZ»",
+  "supplier_bin": "180340052602",
+  "doc_number": "2026/11-07",
+  "doc_date": "2026-11-14",
+  "currency": "EUR",
+  "total_amount": 12000,
+  "vat_amount": null,
+  "line_items": [
+    {"name": ["Разработка мобильного приложения", "Мобильді қосымша әзірлеу"], "qty": 1, "price": 12000}
+  ],
+  "expected_warnings": ["VAT_EXEMPT"],
+  "_note": "Смешанный казахско-русский текст, поставщик = Исполнитель, а не Заказчик."
+}
