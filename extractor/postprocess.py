@@ -27,6 +27,7 @@ from .normalize import (
     number_source,
     to_iso_date,
 )
+from .checks import run_checks
 from .schema import SCALAR_FIELDS, ExtractionResult, LineItem, LLMExtraction
 
 CONF_EXACT = 0.95
@@ -229,4 +230,6 @@ def postprocess(data: LLMExtraction, text: str) -> ExtractionResult:
                 c.null(f)
         c.values["line_items"] = []
 
-    return ExtractionResult(**c.values, field_confidence=c.conf, warnings=c.warnings)
+    result = ExtractionResult(**c.values, field_confidence=c.conf, warnings=c.warnings)
+    result.warnings.extend(run_checks(text, result))
+    return result

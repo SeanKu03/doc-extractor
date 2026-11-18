@@ -11,7 +11,7 @@ from datetime import date
 # --- OCR и гомоглифы ----------------------------------------------------------
 
 # Латинские буквы, которые OCR путает с кириллическими (и наоборот).
-_LAT_TO_CYR = str.maketrans("AaBCcEeHKkMOoPpTXxy", "АаВСсЕеНКкМОоРрТХху")
+LAT_TO_CYR = str.maketrans("AaBCcEeHKkMOoPpTXxy", "АаВСсЕеНКкМОоРрТХху")
 _OCR_DIGIT_LIKE = {"O": "0", "o": "0", "О": "0", "о": "0", "l": "1", "I": "1", "|": "1", "З": "3"}
 _DIGIT_NEIGHBOUR = re.compile(r"(?<=\d)[OoОоlI|З]|[OoОоlI|З](?=\d)")
 
@@ -27,7 +27,7 @@ def fix_ocr_digits(text: str) -> str:
 
 def norm_text(text: str) -> str:
     """Нормализация для сравнения строк: регистр, ё, кавычки, латиница->кириллица, пробелы."""
-    t = text.translate(_LAT_TO_CYR).lower().replace("ё", "е")
+    t = text.translate(LAT_TO_CYR).lower().replace("ё", "е")
     t = re.sub(r"[«»\"'“”„`]", "", t)
     t = re.sub(r"\s+", " ", t)
     return t.strip()
@@ -40,17 +40,20 @@ def contains_normalized(haystack: str, needle: str) -> bool:
 # --- Числа цифрами ------------------------------------------------------------
 
 # "186 180", "42 758,62", "1250", "1 250.50". Разделитель тысяч — один пробел (в т.ч. неразрывный).
-_NUM_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[   ]\d{3})+|\d+)(?:[.,](\d{1,2}))?(?![\d])")
+NUM_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[   ]\d{3})+|\d+)(?:[.,](\d{1,2}))?(?![\d])")
+
+
+def match_to_float(m: re.Match) -> float:
+    integer = re.sub(r"\D", "", m.group(1))
+    return float(f"{integer}.{m.group(2)}" if m.group(2) else integer)
 
 
 def numbers_in_text(text: str) -> set[float]:
     """Числа, записанные цифрами (с учётом OCR-ошибок вида 1O 000)."""
     found: set[float] = set()
     for source in (text, fix_ocr_digits(text)):
-        for m in _NUM_RE.finditer(source):
-            integer = re.sub(r"\D", "", m.group(1))
-            frac = m.group(2) or ""
-            found.add(float(f"{integer}.{frac}" if frac else integer))
+        for m in NUM_RE.finditer(source):
+            found.add(match_to_float(m))
             # "2 100" может быть и одним числом, и двумя колонками таблицы — сохраняем части тоже.
             for part in re.split(r"[   ]", m.group(1)):
                 found.add(float(part))
