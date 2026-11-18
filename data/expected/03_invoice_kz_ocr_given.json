@@ -1,0 +1,15 @@
+{
+  "doc_type": "invoice",
+  "supplier_name": ["ТОО \"Кокжиек Курылыс\"", "ЖШС «Көкжиек Құрылыс»"],
+  "supplier_bin": "210640900180",
+  "doc_number": "AKT-09",
+  "doc_date": "2026-10-09",
+  "currency": "KZT",
+  "total_amount": 340000,
+  "vat_amount": null,
+  "line_items": [
+    {"name": ["Оказание услуг", "Қызмет көрсету"], "qty": 1, "price": 340000}
+  ],
+  "expected_warnings": ["BIN_OCR_CORRECTED", "VAT_EXEMPT"],
+  "_note": "БИН с OCR-ошибками l->1, O->0, после исправления проходит контрольную сумму. 'НДС не облагается' -> vat_amount = null + предупреждение (числа НДС в документе нет)."
+}
